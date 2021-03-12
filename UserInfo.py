@@ -10,10 +10,11 @@ import time
 
 username_css = '@name=\'username\''
 passowrd_css = 'name="password"'
-username = 'user'
-password = 'psswd'
+
 count = 0
 
+username = input("username:")
+password = input("password:")
 
 def login(driver):
     driver.find_element_by_name("username").send_keys(username)
