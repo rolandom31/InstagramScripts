@@ -1,0 +1,5 @@
+Python Script that allows you to check on people who you follow and doesnt follow you back
+
+requierements:
+pip3 install webdrivermanager
+pip3 install webdriver_manager

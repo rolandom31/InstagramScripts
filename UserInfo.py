@@ -10,8 +10,8 @@ import time
 
 username_css = '@name=\'username\''
 passowrd_css = 'name="password"'
-username = 'username'
-password = 'password'
+username = 'user'
+password = 'psswd'
 count = 0
 
 
@@ -52,26 +52,25 @@ def __main__():
     click_button_with_css(driver, "[href*=\"" + username + "/following/\"]")
 
     following = get_list_from_dialog(driver)
-    unfollow_list = no_followback(followers, following)
+    
+    no_follows = no_followback(followers, following)
+    
     print ("You follow the following people who do not follow you back:")
-    for i in range(len(unfollow_list)):
-        print (unfollow_list[i])
+    for i in range(len(no_follows)):
+        print (no_follows[i])
     time.sleep(200)
 
 def no_followback(followers, following):
     followers.sort()
     following.sort()
     no_followback_list = []
-    for i in range(len(following)):
-        try:
-            followers.index(following[i])
-        except ValueError:
-            no_followback_list += [following[i]]
-    return no_followback_list
+    
+    result = list(set(following)-set(followers))
+    return result
 
 def get_list_from_dialog(driver):
     list_xpath ="//div[@role='dialog']//li"
-    WebDriverWait(driver, 20).until(
+    WebDriverWait(driver, 40).until(
     EC.presence_of_element_located((By.XPATH, list_xpath)))
 
     scroll_down(driver)
@@ -82,7 +81,7 @@ def get_list_from_dialog(driver):
     for i in range(len(list_elems)):
         try:
             row_text = list_elems[i].text
-            if ("Follow" in row_text):
+            if ("Follow" or "following" in row_text):
                 username = row_text[:row_text.index("\n")]
                 users += [username]
         except:
