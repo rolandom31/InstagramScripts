@@ -64,7 +64,7 @@ def __main__():
 def no_followback(followers, following):
     followers.sort()
     following.sort()
-    no_followback_list = []
+   
     
     result = list(set(following)-set(followers))
     return result
